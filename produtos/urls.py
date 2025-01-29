@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from busca import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", views.Index, name='index'),
+    path("list/<str:choice>", views.Lista, name='listing'),
+    path("detail/product/<int:pk>/", views.DetailProduct, name='detail-product'),
+    path("create/product", views.create_product, name="create-product"),
+    path("create/category", views.create_category, name="create-category"),
+    path("create/supplier", views.create_supplier, name="create-supplier"),
 ]

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela</title>
+</head>
+<body>
+    {% if produtos %}
+        <table border="1">
+            <h1>Listagem de Produtos</h1>
+            <tr>
+                <th>Nome</th>
+                <th>Código</th>
+            </tr>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td><a href="{% url 'detail-product' produto.id %}">{{ produto.nome_produto }}</a></td>
+                    <td><a href="{% url 'detail-product' produto.id %}">{{ produto.codigo_produto }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Clique no produto e veja mais detalhe sobre</p>
+    {% endif %}
+
+    {% if categorias %}
+    <table border="1">
+        <h1>Listagem de Categorias</h1>
+        <tr>
+            <th>Nome</th>
+        </tr>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.nome_categoria }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if fornecedores %}
+    <table border="1">
+        <h1>Listagem de Fornecedores</h1>
+        <tr>
+            <th>Nome</th>
+            <th>Cnpj</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+        </tr>
+        <tbody>
+            {% for fornecedor in fornecedores %}
+            <tr>
+                <td>{{ fornecedor.nome_fornecedor }}</td>
+                <td>{{ fornecedor.cnpj }}</td>
+                <td>{{ fornecedor.rua }}</td>
+                <td>{{ fornecedor.bairro }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <h4><a href="{% url 'index'%}">Voltar para tela Inicial</a></h4>
+    
+</body>
+</html>

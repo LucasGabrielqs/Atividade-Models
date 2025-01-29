@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Cadastros</h1>
+    <p>Escolha um dos cadastros abaixo para ver sua listagem.</p>
+    <a href="{% url 'listing' choice='produtos' %}">Produtos</a>
+    <br>
+    <a href="{% url 'listing' choice='categorias' %}">Categorias</a>
+    <br>
+    <a href="{% url 'listing' choice='fornecedores' %}">Fornecedores</a>
+
+
+    <h1>Cadastrar</h1>
+    <p>Escolha algum abaixo para realizar o cadastro</p>
+    <a href="{% url 'create-product' %}">Produtos</a>
+    <a href="{% url 'create-category' %}">Categoria</a>
+    <a href="{% url 'create-supplier' %}">Fornecedores</a>
+</body>
+</html>
