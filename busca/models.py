@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 class Categoria(models.Model):
     nome_categoria = models.CharField(max_length=200,verbose_name="Nome da Catergoria")
 
@@ -31,3 +32,4 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome_produto
+    

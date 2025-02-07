@@ -3,6 +3,7 @@ from .models import Produto,Fornecedor,Categoria
 from .forms import CategoriaForms,FornecedorForms,ProdutoForms
 from django.urls import reverse
 from django.shortcuts import redirect
+from django.views.generic import ListView
 
 
 # Create your views here.
@@ -91,3 +92,38 @@ def create_category(request):
     else:
         form = CategoriaForms()
         return render(request, "busca/forms/formulario-categoria.html", {'form':form})
+    
+
+class ProdutosListView(ListView):
+    model = Produto
+    template_name = 'busca/table.html'
+    context_object_name = 'produtos'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = Produto.objects.all()
+
+        # Obtém os parâmetros GET da requisição
+        nome = self.request.GET.get('nome', '')
+        preco_min = self.request.GET.get('preco_min', '')
+        preco_max = self.request.GET.get('preco_max', '')
+
+        # Filtra por nome, se fornecido
+        if nome:
+            queryset = queryset.filter(nome_produto__icontains=nome)  # `icontains` ignora maiúsculas/minúsculas
+
+        # Filtra por faixa de preço, se fornecida
+        if preco_min:
+            queryset = queryset.filter(preco_produto__gte=preco_min)
+        if preco_max:
+            queryset = queryset.filter(preco_produto__lte=preco_max)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Mantém os filtros no contexto para repopular os inputs do formulário
+        context['nome'] = self.request.GET.get('nome', '')
+        context['preco_min'] = self.request.GET.get('preco_min', '')
+        context['preco_max'] = self.request.GET.get('preco_max', '')
+        return context

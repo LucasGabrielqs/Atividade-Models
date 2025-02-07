@@ -7,8 +7,23 @@
 </head>
 <body>
     {% if produtos %}
+        <h1>Listagem de Produtos</h1>
+
+        <form method="GET">
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" name="nome" id="nome" value="{{ nome }}">
+    
+            <label for="preco_min">Preço Mínimo:</label>
+            <input type="number" name="preco_min" id="preco_min" value="{{ preco_min }}" step="0.01">
+    
+            <label for="preco_max">Preço Máximo:</label>
+            <input type="number" name="preco_max" id="preco_max" value="{{ preco_max }}" step="0.01">
+    
+            <button type="submit">Filtrar</button>
+            <a href="{% url 'produto-list' %}"><button type="button">Limpar</button></a>
+        </form>
+
         <table border="1">
-            <h1>Listagem de Produtos</h1>
             <tr>
                 <th>Nome</th>
                 <th>Código</th>
@@ -22,8 +37,25 @@
                 {% endfor %}
             </tbody>
         </table>
-        <p>Clique no produto e veja mais detalhe sobre</p>
+
+        <p>Clique no produto para ver mais detalhes</p>
+
+        <!-- PAGINAÇÃO APENAS PARA PRODUTOS -->
+        {% if is_paginated %}
+            <div>
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; Primeira</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                {% endif %}
+            </div>
+        {% endif %}
     {% endif %}
+
 
     {% if categorias %}
     <table border="1">

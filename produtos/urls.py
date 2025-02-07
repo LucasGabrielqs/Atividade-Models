@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from busca import views
+from busca.views import ProdutosListView
 
 urlpatterns = [
     path("", views.Index, name='index'),
@@ -25,4 +26,5 @@ urlpatterns = [
     path("create/product", views.create_product, name="create-product"),
     path("create/category", views.create_category, name="create-category"),
     path("create/supplier", views.create_supplier, name="create-supplier"),
+    path("produtos/",ProdutosListView.as_view(),name="produto-list")
 ]
